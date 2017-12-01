@@ -29,7 +29,7 @@ class Tebakkode_m extends CI_Model {
   //disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
   function saveUserState($profile){
 	//jika sudah pernah diupdate saja statenya
-	if(this->getUserState($profile['userId'])){
+	if($this->getUserState($profile['userId'])){
 	
 	  $this->db->set('state', $profile['state'])
       ->where('user_id', $profile['userId'])
