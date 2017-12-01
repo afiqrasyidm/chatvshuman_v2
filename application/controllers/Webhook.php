@@ -109,14 +109,17 @@ class Webhook extends CI_Controller {
 			  $profile    = $getprofile->getJSONDecodedBody();
 			  
 			 //cek apakah state sudah /main atau tidak 
-			 //jika belum menekan /main
-			if($this->tebakkode_m->getUserState($event['source']['userId'])){
-				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
-					
+			 //jika sudah menekan /main
+			if($this->tebakkode_m->getUserState($event['source']['userId']) 
+				
+			){
+				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));						
 			}
-			//jika sudah menekan /main
+			//jika belum menekan /main
 			else{
-				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));	
+	
+				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
+				
 			}
 			
 			 
