@@ -55,12 +55,20 @@ class Webhook extends CI_Controller {
 		if(is_array($this->events['events'])){
 		  foreach ($this->events['events'] as $event){
 	 
-			// skip group and room event
+			//untuk personal
 			if(isset($event['source']['userId'])) 
 			{
-				$message = 'Silakan kirim pesan "MULAI" untuk memulai kuis.';
+				$message = 'Ini personal';
 				$textMessageBuilder = new TextMessageBuilder($message);
 				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+			}
+			//untuk chat group
+			else{
+			
+				$message = 'Ini Group';
+				$textMessageBuilder = new TextMessageBuilder($message);
+				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+				
 			}
 			
 	 
