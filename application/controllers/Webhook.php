@@ -56,7 +56,7 @@ class Webhook extends CI_Controller {
 		  foreach ($this->events['events'] as $event){
 	 
 			// skip group and room event
-			if(!isset($event['source']['userId'])) 
+			if(isset($event['source']['userId'])) 
 			{
 				$message = 'Silakan kirim pesan "MULAI" untuk memulai kuis.';
 				$textMessageBuilder = new TextMessageBuilder($message);
