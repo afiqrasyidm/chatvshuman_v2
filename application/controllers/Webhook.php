@@ -113,12 +113,12 @@ class Webhook extends CI_Controller {
 			 
 			 	$isSudahPernahSave =$this->tebakkode_m->getUserState($event['source']['userId']);
 				
-			if($isSudahPernahSave['isSudahPernahSave'] && $isSudahPernahSave['state'] == 1) 
+			if($isSudahPernahSave['state'] == 1) 
 				
 			{
 				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));						
 			}
-			//jika belum menekan /main
+			//jika belum menekan /main atau telah menekan /selesai
 			else{
 	
 				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
