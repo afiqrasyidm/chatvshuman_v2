@@ -111,7 +111,7 @@ class Webhook extends CI_Controller {
 			 //cek apakah state sudah /main atau tidak 
 			 //jika belum menekan /main
 			if($this->tebakkode_m->getUserState($event['source']['userId'])){
-				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
+				$cekCommand  = new TextMessageBuilder($this->tebakkode_m->getUserState($event['source']['userId']));
 					
 			}
 			//jika sudah menekan /main
