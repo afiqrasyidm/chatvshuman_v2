@@ -67,7 +67,7 @@ class Webhook extends CI_Controller {
 			//untuk chat personal
 			else{
 				
-				$message = GroupChat($event, $this->bot);
+				$message = $this->GroupChat($event, $this->bot);
 				
 				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
 				
