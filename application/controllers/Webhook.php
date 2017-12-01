@@ -148,10 +148,10 @@ class Webhook extends CI_Controller {
 			
 			 $profile = $this->bot->getProfile($event['source']['userId'])->getJSONDecodedBody();
 			
-			//$this->tebakkode_m->saveUserState($profile);
+			$this->tebakkode_m->saveUserState($profile);
  
 			
-			return $profile['userId'];
+			return $this->getPertanyaan();
 			
 			
 		}

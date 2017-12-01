@@ -20,7 +20,7 @@ class Tebakkode_m extends CI_Model {
   // Users
   function getUserState($user_id){
 	  
-    $data = $this->db->where('user_id', $userId)->get('users')->row_array();
+    $data = $this->db->where('user_id', $user_id)->get('users')->row_array();
     if(count($data) > 0) return $data;
     return false;
 	
