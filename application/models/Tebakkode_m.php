@@ -29,10 +29,10 @@ class Tebakkode_m extends CI_Model {
   //disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
   function saveUserState($profile){
 	//jika sudah pernah diupdate saja statenya
-	if($this->getUserState($profile['userId'])){
+	if($this->getUserState($profile['source']['userId'])){
 	
 	  $this->db->set('state', $profile['state'])
-      ->where('user_id', $profile['userId'])
+      ->where('user_id', $profile['source']['userId'])
       ->update('users_state');
 	   
 	   return $this->db->affected_rows();
@@ -40,7 +40,7 @@ class Tebakkode_m extends CI_Model {
 	//jika belum maka state user itu dibuat
 	else{
 	
-	  $this->db->set('user_id', $profile['userId'])
+	  $this->db->set('user_id', $profile['source']['userId'])
       ->set('state', $profile['state'])
       ->insert('users_state');
 	
