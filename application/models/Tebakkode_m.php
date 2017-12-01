@@ -24,7 +24,7 @@ class Tebakkode_m extends CI_Model {
     if(count($data) > 0) 
 	{	
 		
-		return $data->state;
+		return true;
     }
 	return false;
 	

@@ -166,7 +166,7 @@ class Webhook extends CI_Controller {
 			$this->tebakkode_m->saveUserState($profile);
  
 			
-			return $profile['source']['userId'];
+			return $this->getPertanyaan();
 			
 			
 		}
