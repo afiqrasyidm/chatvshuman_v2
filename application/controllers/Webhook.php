@@ -47,7 +47,7 @@ class Webhook extends CI_Controller {
         // your code here
       }
     }
- 
+
   } // end of index.php
 
   private function followCallback($event){}
