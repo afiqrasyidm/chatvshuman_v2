@@ -23,8 +23,9 @@ class Tebakkode_m extends CI_Model {
     $data = $this->db->where('user_id', $user_id)->get('users_state')->row_array();
     if(count($data) > 0) 
 	{	
-		
-		return true;
+		$data_state['state'] = $data->state;
+		$data_state['isSudahPernahSave'] = true;
+		return $data_state;
     }
 	return false;
 	
@@ -33,7 +34,9 @@ class Tebakkode_m extends CI_Model {
   //disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
   function saveUserState($profile){
 	//jika sudah pernah diupdate saja statenya
-	if($this->getUserState($profile['source']['userId'])){
+	
+	$isSudahPernahSave = $this->getUserState($profile['source']['userId']);
+	if($isSudahPernahSave['isSudahPernahSave']){
 	
 	  $this->db->set('state', $profile['state'])
       ->where('user_id', $profile['source']['userId'])
