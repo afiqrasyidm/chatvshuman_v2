@@ -116,7 +116,7 @@ class Webhook extends CI_Controller {
 			}
 			//jika sudah menekan /main
 			else{
-				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));	
+				$cekCommand  = new TextMessageBuilder($this->tebakkode_m->getUserState($event['source']['userId']));
 			}	 
 			 
 			
@@ -194,7 +194,7 @@ class Webhook extends CI_Controller {
 			
 			$this->tebakkode_m->saveUserState($profile);
 		
-			return "Permainan Berakhir, silahkan ketik /main lagi untuk bermain";
+			return "Permainan Berakhir, silahkan ketik /main  untuk bermain lagi";
 		}
 		else{
 			return "Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai";
