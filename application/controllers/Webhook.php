@@ -69,6 +69,7 @@ class Webhook extends CI_Controller {
 				
 				$message = $this->GroupChat($event, $this->bot);
 				
+				
 				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
 				
 			}
@@ -107,10 +108,16 @@ class Webhook extends CI_Controller {
 			  $getprofile = $bot->getProfile($userId);
 			  $profile    = $getprofile->getJSONDecodedBody();
 			  
-			 
-			 
-				 
-			$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
+			 //cek apakah state sudah /main atau tidak 
+			 //jika belum menekan /main
+			if($this->tebakkode_m->getUserState($event['source']['userId'])){
+				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
+					
+			}
+			//jika sudah menekan /main
+			else{
+				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));	
+			}	 
 			 
 			
 			
@@ -166,6 +173,31 @@ class Webhook extends CI_Controller {
 		}
 		else{
 			return "Silahkan ketik /main untuk main dan /help untuk bantuan";
+		}
+	}
+	
+	//fungsi untuk mengecek command user setelah /main
+	function cekCommandMain($event){
+		if( $event['message']['text'] === "/skip"){
+			
+			
+			return $this->getPertanyaan();
+			
+			
+		}
+		
+		else if($event['message']['text'] === "/selesai"){
+		
+			$profile = $event;
+			//disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
+			$profile['state'] = 0; 
+			
+			$this->tebakkode_m->saveUserState($profile);
+		
+			return "Permainan Berakhir, silahkan ketik /main lagi untuk bermain";
+		}
+		else{
+			return "Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai";
 		}
 	}
   
