@@ -44,11 +44,43 @@ class Webhook extends CI_Controller {
  
     // debuging data
     file_put_contents('php://stderr', 'Body: '.$body);
+  
+  
+  
+  
+  
+  
+  
+  
+		if(is_array($this->events['events'])){
+		  foreach ($this->events['events'] as $event){
+	 
+			// skip group and room event
+			if(!isset($event['source']['userId'])) 
+			{
+				$message = 'Silakan kirim pesan "MULAI" untuk memulai kuis.';
+				$textMessageBuilder = new TextMessageBuilder($message);
+				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+			}
+			
+	 
+			
+		  } // end of foreach
+		}
+	  
+  
+  
+  
+  
+  
   } // end of index.php
 
   private function followCallback($event){}
 
-  private function textMessage($event){}
+  private function textMessage($event){
+	  
+	
+  }
 
   private function stickerMessage($event){}
 
