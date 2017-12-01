@@ -110,7 +110,7 @@ class Webhook extends CI_Controller {
 			 
 			 
 				 
-			$cekCommand  = new TextMessageBuilder(cekCommand($event));
+			$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
 			 
 			
 			
