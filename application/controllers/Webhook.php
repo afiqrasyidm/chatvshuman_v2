@@ -146,7 +146,7 @@ class Webhook extends CI_Controller {
 	function cekCommand($event){
 		if( $event['message']['text'] === "/main"){
 			
-			 $profile = $this->bot->getProfile($event['source'])->getJSONDecodedBody();
+			 $profile = $event;
 			//disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
 			$profile['state'] = 1; 
 			
