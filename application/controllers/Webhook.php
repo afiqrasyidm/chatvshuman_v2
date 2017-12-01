@@ -147,6 +147,8 @@ class Webhook extends CI_Controller {
 		if( $event['message']['text'] === "/main"){
 			
 			 $profile = $this->bot->getProfile($event['source']['userId'])->getJSONDecodedBody();
+			//disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
+			$profile['state'] = 1; 
 			
 			$this->tebakkode_m->saveUserState($profile);
  
