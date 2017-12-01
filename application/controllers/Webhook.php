@@ -59,13 +59,14 @@ class Webhook extends CI_Controller {
 			if( $event['source']['type'] == 'group' or
 				$event['source']['type'] == 'room') 
 			{
-				$message = 'Ini Group';
-				$textMessageBuilder = new TextMessageBuilder($message);
-				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+			
+				$message = GroupChat($event, $this->bot)
+				
+				$this->bot->replyMessage($event['replyToken'], $message);
 			}
 			//untuk chat group
 			else{
-			
+				
 				$message = 'Ini personal';
 				$textMessageBuilder = new TextMessageBuilder($message);
 				$this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
@@ -96,5 +97,73 @@ class Webhook extends CI_Controller {
   public function sendQuestion($replyToken, $questionNum=1){}
 
   private function checkAnswer($message, $replyToken){}
+  
+  
+  
+  //fungsi untuk group chat
+  function GroupChat($event, $bot) {
+			// route action code here
+			  $userId     = $event['source']['userId'];
+			  $getprofile = $bot->getProfile($userId);
+			  $profile    = $getprofile->getJSONDecodedBody();
+			  
+			 
+			 
+				 
+			$cekCommand  = new TextMessageBuilder(cekCommand($event));
+			 
+			
+			
+			 $result = $bot->replyMessage($event['replyToken'], $cekCommand );
+			 
+			 return $result;
+			        
+	}
+	//fungsi untuk User Chat
+	function UserChat($event, $bot){
+		
+			
+			
+			$result = $bot->replyText($event['replyToken'],  $event['replyToken']);
+			
+			
+			
+			return $result;
+	}
+	//fungsi untuk get pertanyaan 
+	function getPertanyaan(){
+		
+		$game_arr=array("[1]... Kakek tidak suka",
+						"Mobil[1]... tidak berjalan di",
+						"Toyota adalah sebuah ... [2]",
+						);
+						
+			
+		return $game_arr[rand(0 , sizeof($game_arr)-1)];
+	}
+	
+	//fungsi untuk mengecek command user awal
+	function cekCommand($event){
+		if( $event['message']['text'] === "/main"){
+			
+			return getPertanyaan();
+			
+			
+		}
+		else if($event['message']['text'] === "/help"){
+			return "Bentar yaa";
+			
+		}
+		else if($event['message']['text'] === "/selesai"){
+			session_destroy();
+			return "Permainan Berakhir, silahkan ketik /main lagi untuk bermain";
+		}
+		else{
+		
+			
+			return "Silahkan ketik /main untuk main dan /help untuk bantuan";
+		}
+	}
+  
 
 }
