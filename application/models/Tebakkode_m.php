@@ -18,9 +18,37 @@ class Tebakkode_m extends CI_Model {
   }
 
   // Users
-  function getUser($userId){}
+  function getUserState($user_id){
+	  
+    $data = $this->db->where('user_id', $userId)->get('users')->row_array();
+    if(count($data) > 0) return $data;
+    return false;
+	
+  }
 
-  function saveUser($profile){}
+  //disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
+  function saveUserState($profile){
+	//jika sudah pernah diupdate saja statenya
+	if(this->getUserState($profile['userId'])){
+	
+	  $this->db->set('state', $profile['state'])
+      ->where('user_id', $profile['userId'])
+      ->update('users_state');
+	   
+	   return $this->db->affected_rows();
+	}
+	//jika belum maka state user itu dibuat
+	else{
+	
+	  $this->db->set('user_id', $profile['userId'])
+      ->set('state', $profile['state'])
+      ->insert('users_state');
+	
+	   return $this->db->insert_id();
+  
+	}
+  
+  }
 
   // Question
   function getQuestion($questionNum){}

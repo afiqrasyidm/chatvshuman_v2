@@ -20,7 +20,7 @@ class Webhook extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('tebakkode_m');
-
+	
     // create bot object
     $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
     $this->bot  = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
@@ -146,7 +146,12 @@ class Webhook extends CI_Controller {
 	function cekCommand($event){
 		if( $event['message']['text'] === "/main"){
 			
-			return getPertanyaan();
+			 $profile = $this->bot->getProfile($event['source']['userId'])->getJSONDecodedBody();
+			
+			$this->tebakkode_m->saveUserState($profile);
+ 
+			
+			return this->getPertanyaan();
 			
 			
 		}
@@ -155,12 +160,9 @@ class Webhook extends CI_Controller {
 			
 		}
 		else if($event['message']['text'] === "/selesai"){
-			session_destroy();
 			return "Permainan Berakhir, silahkan ketik /main lagi untuk bermain";
 		}
 		else{
-		
-			
 			return "Silahkan ketik /main untuk main dan /help untuk bantuan";
 		}
 	}
