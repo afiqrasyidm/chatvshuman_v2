@@ -28,26 +28,22 @@ class Webhook extends CI_Controller {
 
   public function index()
   {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       echo "Hello Coders!";
       header('HTTP/1.1 400 Only POST method allowed');
       exit;
     }
-
+ 
     // get request
     $body = file_get_contents('php://input');
     $this->signature = isset($_SERVER['HTTP_X_LINE_SIGNATURE']) ? $_SERVER['HTTP_X_LINE_SIGNATURE'] : "-";
     $this->events = json_decode($body, true);
-
-    // log every event requests
+ 
+    // save log every event requests
     $this->tebakkode_m->log_events($this->signature, $body);
-
-    if(is_array($this->events['events'])){
-      foreach ($this->events['events'] as $event){
-        // your code here
-      }
-    }
-
+ 
+    // debuging data
+    file_put_contents('php://stderr', 'Body: '.$body);
   } // end of index.php
 
   private function followCallback($event){}
