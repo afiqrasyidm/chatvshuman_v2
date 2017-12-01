@@ -166,7 +166,7 @@ class Webhook extends CI_Controller {
 			$this->tebakkode_m->saveUserState($profile);
  
 			
-			return $this->getPertanyaan();
+			return $profile['source']['userId'];
 			
 			
 		}
@@ -174,9 +174,7 @@ class Webhook extends CI_Controller {
 			return "Bentar yaa";
 			
 		}
-		else if($event['message']['text'] === "/selesai"){
-			return "Permainan Berakhir, silahkan ketik /main lagi untuk bermain";
-		}
+		
 		else{
 			return "Silahkan ketik /main untuk main dan /help untuk bantuan";
 		}
