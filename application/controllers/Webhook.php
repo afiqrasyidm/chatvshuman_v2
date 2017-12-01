@@ -115,7 +115,7 @@ class Webhook extends CI_Controller {
 				
 			if($isSudahPernahSave['isSudahPernahSave'] && $isSudahPernahSave['state'] == 0) 
 				
-			){
+			{
 				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));						
 			}
 			//jika belum menekan /main
