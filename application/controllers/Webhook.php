@@ -105,6 +105,7 @@ class Webhook extends CI_Controller {
   function GroupChat($event, $bot) {
 			// route action code here
 			  $userId     = $event['source']['userId'];
+			  $groupId     = $event['source']['groupId'];
 			  $getprofile = $bot->getProfile($userId);
 			  $profile    = $getprofile->getJSONDecodedBody();
 			  
@@ -125,11 +126,10 @@ class Webhook extends CI_Controller {
 				
 			}
 			
-			 
+			 $cekCommand  = new TextMessageBuilder($groupId );						
+		
 				 
 			 
-			
-			
 			 $result = $bot->replyMessage($event['replyToken'], $cekCommand );
 			 
 			 return $result;
