@@ -60,7 +60,7 @@ class Webhook extends CI_Controller {
 				$event['source']['type'] == 'room') 
 			{
 			
-				$message = GroupChat($event, $this->bot);
+				$message = $this->GroupChat($event, $this->bot);
 				
 				$this->bot->replyMessage($event['replyToken'], $message);
 			}
