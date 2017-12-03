@@ -20,7 +20,7 @@ class Tebakkode_m extends CI_Model {
   // Users
   function getUserState($user_id){
 	  
-    $data = $this->db->where('user_id', $user_id)->get('timestamp');
+    $data = $this->db->where('user_id', $user_id)->get('users_state');
     if( $data -> num_rows()  > 0) 
 	{	
 		$data_state['timestamp_jawab'] = strtotime($data->row()->timestamp);

@@ -256,8 +256,6 @@ class Webhook extends CI_Controller {
 			}
 			
 			
-			
-			
 			return $textMessageBuilder1;
 		}
 	
