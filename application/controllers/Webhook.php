@@ -309,18 +309,32 @@ class Webhook extends CI_Controller {
 			if($isSudahPernahSave['isSudahPernahSave']){
 			
 				$datas  = $isSudahPernahSave['data'];
-				$multiMessageBuilder = new MultiMessageBuilder();
 				
+		
+				$pemenang = "Berikut adalah rangking-rangking anggota dari group ini :";
 				 foreach($datas as $data)
 				{
-					$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
-					$multiMessageBuilder->add($textMessageBuilder1);
+					$res = $this->bot->getProfile($data->user_id);
+					
+					if($res->isSucceeded()){
+						 $profile_user = $res->getJSONDecodedBody();
+						 
+						 	$pemenang = $pemenang
+										."\n "
+										. $profile_user['displayName']
+										." dengan score "
+										.$data->score;
+					}
+				
+				
 				}
-							
+				
+				$textMessageBuilder1 = new TextMessageBuilder($pemenang);
+		
 
 				
 				
-				return $multiMessageBuilder;
+				return $textMessageBuilder1;
 	
 			}
 			else{
