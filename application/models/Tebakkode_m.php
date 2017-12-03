@@ -61,10 +61,10 @@ class Tebakkode_m extends CI_Model {
   // Group
   function getGroupState($group_id){
 	  
-    $data = $this->db->where('group_id', $group_id)->get('group_state')->row();
-    if(count($data) > 0) 
+    $data = $this->db->where('group_id', $group_id)->get('group_state');
+    if( $data -> num_rows()  > 0) 
 	{	
-		$data_state['state'] = $data->group_state;
+		$data_state['state'] = $data->row()->group_state;
 		$data_state['isSudahPernahSave'] = true;
 		return $data_state;
     }
