@@ -141,7 +141,7 @@ class Webhook extends CI_Controller {
 		
 			
 			
-			$result = $bot->replyText($event['replyToken'],  $event['replyToken']);
+			$result = $bot->replyText($event['replyToken'],  "Gan Harus main digroup g bisa solo player");
 			
 			
 			
@@ -321,7 +321,7 @@ class Webhook extends CI_Controller {
 				$datas  = $isSudahPernahSave['data'];
 				
 		
-				$pemenang = "Berikut adalah rangking-rangking anggota dari group ini :";
+				$pemenang = "Berikut adalah rangking dari anggota group ini :";
 				 foreach($datas as $data)
 				{
 					$res = $this->bot->getProfile($data->user_id);
