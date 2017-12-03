@@ -75,11 +75,11 @@ class Tebakkode_m extends CI_Model {
   function saveGroupState($profile){
 	//jika sudah pernah diupdate saja statenya
 	
-	$isSudahPernahSave = $this->getUserState($profile['source']['group_id']);
+	$isSudahPernahSave = $this->getUserState($profile['source']['groupId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
 	  $this->db->set('group_id', $profile['state'])
-      ->where('group_id', $profile['source']['group_id'])
+      ->where('group_id', $profile['source']['groupId'])
       ->update('group_state');
 	   
 	   return $this->db->affected_rows();
@@ -87,7 +87,7 @@ class Tebakkode_m extends CI_Model {
 	//jika belum maka state user itu dibuat
 	else{
 	
-	  $this->db->set('group_id', $profile['source']['group_id'])
+	  $this->db->set('group_id', $profile['source']['groupId'])
       ->set('state', $profile['state'])
       ->insert('group_state');
 	
