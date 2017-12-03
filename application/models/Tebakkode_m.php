@@ -94,14 +94,14 @@ class Tebakkode_m extends CI_Model {
 	
 	$isSudahPernahSave = $this->getGroupState($profile['source']['groupId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
-	
+		//jika selesai hanya state aja yang diubah
 		if($profile['pertanyaan_id']==NULL){
 		
 			$this->db->set('group_state', $profile['state'])
 			->where('group_id', $profile['source']['groupId'])
 			->update('group_state');
 		}
-		
+		//jika skip pertanyaan id diupdate
 		else{
 			
 			$this->db->set('pertanyaan_id', $profile['pertanyaan_id'])
@@ -128,9 +128,20 @@ class Tebakkode_m extends CI_Model {
   function getQuestion($questionNum){
 	  $data = $this->db->where('id', $questionNum)->get('pertanyaan')->row();
 	  return $data;
-}
+ }
 
-  function isAnswerEqual($number, $answer){}
+  function isAnswerEqual($event, $answer){
+	 $group_state= this->getGroupState($event['source']['groupId']);
+	 $data = $this->db->where('id', $group_state['pertanyaan_id'])->get('pertanyaan')->row();
+	 
+	 if($data->jawaban_benar == $answer){
+			return true;
+	 }
+	else{
+			return false;
+	 } 
+	 
+  }
 
   function setUserProgress($user_id, $newNumber){}
 

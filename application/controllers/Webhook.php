@@ -148,7 +148,7 @@ class Webhook extends CI_Controller {
 			return $result;
 	}
 	//fungsi untuk get pertanyaan 
-	function getPertanyaan($event){
+	function getPertanyaan($event, $isBenar){
 		 $profile = $event;
 		 
 		 //random pertanyaan 
@@ -156,7 +156,7 @@ class Webhook extends CI_Controller {
 			
 
 		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
-		
+		$textMessage_jikaBenar = new TextMessageBuilder("Selamat Kamu Benar. Berikut pertanyaan selanjutnya");		
 		$textMessageBuilder_pertanyaan = new TextMessageBuilder($pertanyaan->pertanyaan);
 		$textMessageBuilder_opsi = new TextMessageBuilder(
 									"A. ".$pertanyaan->opsi_a
@@ -168,7 +168,15 @@ class Webhook extends CI_Controller {
 									"D. ".$pertanyaan->opsi_d
 									);
 		
+
+	
+		
 		$multiMessageBuilder = new MultiMessageBuilder();
+		if($isBenar){
+			$multiMessageBuilder->add($textMessage_jikaBenar);
+			
+		}
+	
 		$multiMessageBuilder->add($textMessageBuilder_pertanyaan);
 		$multiMessageBuilder->add($textMessageBuilder_opsi);
 		
@@ -192,7 +200,7 @@ class Webhook extends CI_Controller {
 			$this->tebakkode_m->saveGroupState($profile);
  
 			
-			return $this->getPertanyaan($event);
+			return $this->getPertanyaan($event, false);
 			
 			
 		}
@@ -216,7 +224,7 @@ class Webhook extends CI_Controller {
 		if( $event['message']['text'] === "/skip"){
 			
 			
-			return $this->getPertanyaan($event);
+			return $this->getPertanyaan($event, false);
 			
 			
 		}
@@ -240,25 +248,53 @@ class Webhook extends CI_Controller {
 			OR (strcasecmp($event['message']['text'], "D") == 0)
 			){
 			
-			//ambil pertanyaan sekarang
-			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId']) ;
+			//cek apakah jawaban benar
+			$answer = 0;
+			if(strcasecmp($event['message']['text'], "A") == 0 ){
+				$answer = 1;
+			}
+			else if(strcasecmp($event['message']['text'], "B") == 0){
+				$answer = 2;
+			}
+			else if (strcasecmp($event['message']['text'], "C") == 0){
+				$answer = 3;
+			}
+			else{
+				$answer = 4;
+			}
+			$isBenar = $this->tebakkode_m->isAnswerEqual($event, $answer) ;
 			
 			$profile = $event;
 			$date = new DateTime();
 			$profile['timestamp_jawab'] = $date ->format('Y-m-d H:i:s');
 			//Save Use State 
-				$user_state = $this->tebakkode_m->saveUserState($profile);
+			$is_spam = $this->tebakkode_m->saveUserState($profile);
 	
-			$textMessageBuilder1 = new TextMessageBuilder("OK kamu sudah jawab");
 	
-			
-			if(!$user_state){
+	
+	
+			//cek spam apa engga
+			if(!$is_spam){
 				$textMessageBuilder1 = new TextMessageBuilder("Jangan SPAM OI, kasih kesempatan yang lain");
+				return $textMessageBuilder1;
+	
+			}
+			//cek benar apa engga
+			else if($isBenar){
+				
+				//jika benar ke pertanyaan selanjutnya
+				return $this->getPertanyaan($event, $isBenar);
+			
+				
+			}
+			else{
+				$textMessageBuilder1 = new TextMessageBuilder("Masih kurang beruntung gan");
+	
+				return $textMessageBuilder1;
 	
 			}
 			
 			
-			return $textMessageBuilder1;
 		}
 	
 		else{
