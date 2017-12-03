@@ -325,7 +325,7 @@ class Webhook extends CI_Controller {
 										.$index
 										.". "
 										. $profile_user['displayName']
-										." dengan score "
+										." dengan jumlah score ="
 										.$data->score;
 										
 							$index++;
