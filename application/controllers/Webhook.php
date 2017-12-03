@@ -156,9 +156,11 @@ class Webhook extends CI_Controller {
 			
 
 		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
-		$textMessage_jikaBenar = new TextMessageBuilder("Selamat Kamu Benar. Berikut pertanyaan selanjutnya");		
-		$textMessageBuilder_pertanyaan = new TextMessageBuilder($pertanyaan->pertanyaan);
+		 $jika_benar = "Selamat Kamu Benar. Berikut pertanyaan selanjutnya";
+	
 		$textMessageBuilder_opsi = new TextMessageBuilder(
+									$pertanyaan->pertanyaan
+									."\n".
 									"A. ".$pertanyaan->opsi_a
 									."\n".
 									"B. ".$pertanyaan->opsi_b
@@ -180,11 +182,11 @@ class Webhook extends CI_Controller {
 			$keterangan = $this->tebakkode_m->getQuestion($group_state ['pertanyaan_id'])->keterangan;
 			//jika keterangan ada
 			if($keterangan != NULL ){
-				$textMessage_keterangan = new TextMessageBuilder("Ya.". $keterangan);
-				$multiMessageBuilder->add($textMessage_keterangan);
+				$jika_benar ="Ya.". $keterangan."\n".$jika_benar;
 			}
 			
-			
+		
+			$textMessage_jikaBenar = new TextMessageBuilder($jika_benar);	
 			
 		
 			$multiMessageBuilder->add($textMessage_jikaBenar);
@@ -192,7 +194,6 @@ class Webhook extends CI_Controller {
 			
 		}
 	
-		$multiMessageBuilder->add($textMessageBuilder_pertanyaan);
 		$multiMessageBuilder->add($textMessageBuilder_opsi);
 		
 		$profile["pertanyaan_id"] = $random_id;
