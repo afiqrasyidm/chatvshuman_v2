@@ -76,7 +76,7 @@ class Tebakkode_m extends CI_Model {
   function saveGroupState($profile){
 	//jika sudah pernah diupdate saja statenya
 	
-	$isSudahPernahSave = $this->getUserState($profile['source']['groupId']);
+	$isSudahPernahSave = $this->getGroupState($profile['source']['groupId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
 	  $this->db->set('group_state', $profile['state'])
