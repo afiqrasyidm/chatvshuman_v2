@@ -246,7 +246,7 @@ class Webhook extends CI_Controller {
 			$event = $profile;
 			$profile['timestamp_jawab'] = new DateTime()->format('Y-m-d H:i:s');
 			//Save Use State 
-				$user_state = $this->tebakkode_m->saveUserState($event);
+				$user_state = $this->tebakkode_m->saveUserState($profile);
 	
 			$textMessageBuilder1 = new TextMessageBuilder("OK kamu sudah jawab");
 	
