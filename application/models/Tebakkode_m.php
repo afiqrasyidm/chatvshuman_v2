@@ -20,10 +20,10 @@ class Tebakkode_m extends CI_Model {
   // Users
   function getUserState($user_id){
 	  
-    $data = $this->db->where('user_id', $user_id)->get('timestamp')->row();
-    if(count($data) > 0) 
+    $data = $this->db->where('user_id', $user_id)->get('timestamp');
+    if( $data -> num_rows()  > 0) 
 	{	
-		$data_state['timestamp_jawab'] = $data->timestamp;
+		$data_state['timestamp_jawab'] = $data->row()->timestamp;
 		$data_state['isSudahPernahSave'] = true;
 	
 		return $data_state;
