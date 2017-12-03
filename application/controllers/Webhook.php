@@ -182,7 +182,7 @@ class Webhook extends CI_Controller {
 			$keterangan = $this->tebakkode_m->getQuestion($group_state ['pertanyaan_id'])->keterangan;
 			//jika keterangan ada
 			if($keterangan != NULL ){
-				$jika_benar ="Ya.". $keterangan."\n".$jika_benar;
+				$jika_benar ="Ya. ". $keterangan.". ".$jika_benar;
 			}
 			
 		
