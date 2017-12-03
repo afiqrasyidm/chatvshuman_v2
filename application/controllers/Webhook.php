@@ -242,7 +242,7 @@ class Webhook extends CI_Controller {
 			//ambil pertanyaan sekarang
 			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId']) ;
 			
-			$pertanyaan_sekarang =$pertanyaan_sekarang ->pertanyaan_id;
+
 			//Save Use State 
 			
 				$user_state = $this->tebakkode_m->saveUserState($event['source']['userId']);

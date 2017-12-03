@@ -73,6 +73,7 @@ class Tebakkode_m extends CI_Model {
 	{	
 		$data_state['state'] = $data->row()->group_state;
 		$data_state['isSudahPernahSave'] = true;
+		$data_state['pertanyaan_id'] = $data->row()->pertanyaan_id;;
 		return $data_state;
     }
 	return false;
