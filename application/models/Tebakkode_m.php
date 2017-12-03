@@ -143,8 +143,53 @@ class Tebakkode_m extends CI_Model {
 	 
   }
 
-  function setUserProgress($user_id, $newNumber){}
+  
+  function getGroupScore($profile){
+	  
+    $data = $this->db
+	->where('group_id', $profile['source']['groupId'])
+	->where('user_id', $profile['source']['userId'])
+	->get('score_referensi');
+	
+    if( $data -> num_rows()  > 0) 
+	{	
+		$data_state['id'] = $data->id;
+		$data_state['score'] = $data->score;
+		$data_state['isSudahPernahSave'] = true;
+		return $data_state;
+    }
+	return false;
+	
+  }
 
-  function setScore($user_id, $score){}
+
+  function setScoreGroup($profile){
+	  
+	  
+	$isSudahPernahSave = $this->getGroupScore($profile['source']['groupId']);
+	if($isSudahPernahSave['isSudahPernahSave']){
+		//jika selesai hanya state aja yang diubah
+		$score_now = $data_state['score'] + 1;
+		
+		$this->db->set('score', $score_now)
+			->where('id', $data_state['id'])
+			->update('score_referensi');
+		
+	}
+	//jika belum maka state user itu dibuat
+	else{
+	
+	  $this->db
+	  ->set('group_id', $profile['source']['groupId'])
+	  ->set('user_id', $profile['source']['userId'])
+
+      ->insert('score_referensi');
+	
+		
+		
+	   return 	$this->db->insert_id();
+  
+	}
+  }
 
 }

@@ -206,14 +206,14 @@ class Webhook extends CI_Controller {
 		}
 		else if($event['message']['text'] === "/help"){
 		
-			$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
+			$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa masih bingung nulis apa");
 	
 			return $textMessageBuilder1;
 			
 		}
 		
 		else{
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main dan /help untuk bantuan");
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main, /help untuk bantuan, /selesai untuk selesai dan /ranking untuk melihat ranking group ini");
 	
 				return $textMessageBuilder1;
 		}
@@ -237,7 +237,9 @@ class Webhook extends CI_Controller {
 			
 			$this->tebakkode_m->saveGroupState($profile);
 			
-			$textMessageBuilder1 = new TextMessageBuilder("Permainan Berakhir, silahkan ketik /main untuk bermain lagi");
+			$textMessageBuilder1 = new TextMessageBuilder("Permainan Berakhir, silahkan ketik /main untuk bermain lagi
+			dan /ranking untuk melihat ranking kamu group ini
+			");
 	
 			return $textMessageBuilder1;
 		}
@@ -283,6 +285,9 @@ class Webhook extends CI_Controller {
 			else if($isBenar){
 				
 				//jika benar ke pertanyaan selanjutnya
+					 $this->tebakkode_m->setScoreGroup($event, $answer) ;
+		
+				
 				return $this->getPertanyaan($event, $isBenar);
 			
 				
@@ -298,11 +303,9 @@ class Webhook extends CI_Controller {
 		}
 	
 		else{
-			$date = new DateTime();
-			$timeFirst  = strtotime($date->format('Y-m-d H:i:s'));
-			$textMessageBuilder1 = new TextMessageBuilder($timeFirst);
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai dan /ranking untuk melihat ranking kamu group ini");
 	
-			return $textMessageBuilder1;
+				return $textMessageBuilder1;
 			
 
 		}
