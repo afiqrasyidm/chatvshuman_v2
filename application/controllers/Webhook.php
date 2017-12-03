@@ -205,11 +205,9 @@ class Webhook extends CI_Controller {
 		}
 		
 		else{
-			$date = new DateTime();
-			
-			$textMessageBuilder1 = new TextMessageBuilder($date->format('Y-m-d H:i:s'));
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main dan /help untuk bantuan");
 	
-			return $textMessageBuilder1;
+				return $textMessageBuilder1;
 		}
 	}
 	
@@ -236,10 +234,11 @@ class Webhook extends CI_Controller {
 			return $textMessageBuilder1;
 		}
 		//user menjawab
-		else if( strcasecmp($event['message']['text'], "A") 
-			OR strcasecmp($event['message']['text'], "B")
-			OR strcasecmp($event['message']['text'], "C")
-			OR strcasecmp($event['message']['text'], "D")){
+		else if( (strcasecmp($event['message']['text'], "A") == 0 )
+			OR (strcasecmp($event['message']['text'], "B") == 0)
+			OR (strcasecmp($event['message']['text'], "C") == 0)
+			OR (strcasecmp($event['message']['text'], "D") == 0)
+			){
 			
 			//ambil pertanyaan sekarang
 			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId']) ;
@@ -247,7 +246,7 @@ class Webhook extends CI_Controller {
 
 			//Save Use State 
 			
-				$user_state = $this->tebakkode_m->saveUserState($event['source']['userId']);
+				$user_state = $this->tebakkode_m->saveUserState($event);
 			
 			
 			
