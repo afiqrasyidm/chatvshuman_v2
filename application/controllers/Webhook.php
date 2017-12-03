@@ -285,7 +285,7 @@ class Webhook extends CI_Controller {
 			else if($isBenar){
 				
 				//jika benar ke pertanyaan selanjutnya
-					 $this->tebakkode_m->setScoreGroup($event, $answer) ;
+					 $this->tebakkode_m->setScoreGroup($event) ;
 		
 				
 				return $this->getPertanyaan($event, $isBenar);
@@ -306,7 +306,7 @@ class Webhook extends CI_Controller {
 		else{
 				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /pertanyaan untuk melihat pertanyaan sekarang, /ranking untuk melihat ranking kamu group ini");
 	
-				$textMessageBuilder1 = new TextMessageBuilder( $this->tebakkode_m->setScoreGroup($event, 1));
+				$textMessageBuilder1 = new TextMessageBuilder( $this->tebakkode_m->setScoreGroup($event));
 	
 				 
 		

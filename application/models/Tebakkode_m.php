@@ -155,8 +155,8 @@ class Tebakkode_m extends CI_Model {
 	
     if( $data -> num_rows()  > 0) 
 	{	
-		$data_state['id'] = $data->id;
-		$data_state['score'] = $data->score;
+		$data_state['id'] = $data->row()->id;
+		$data_state['score'] = $data->row()->score;
 		$data_state['isSudahPernahSave'] = true;
 		return $data_state;
     }
