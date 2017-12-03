@@ -112,7 +112,7 @@ class Webhook extends CI_Controller {
 			 //cek apakah state sudah /main atau tidak 
 			 //jika sudah menekan /main
 			 
-			 	$isSudahPernahSave =$this->tebakkode_m->getUserState($event['source']['userId']);
+			 	$isSudahPernahSave =$this->tebakkode_m->getGroupState($event['source']['groupId']);
 				
 			if($isSudahPernahSave['isSudahPernahSave'] && $isSudahPernahSave['state'] == 1) 
 				
@@ -126,9 +126,6 @@ class Webhook extends CI_Controller {
 				
 			}
 			
-			 $cekCommand  = new TextMessageBuilder($groupId );						
-		
-				 
 			 
 			 $result = $bot->replyMessage($event['replyToken'], $cekCommand );
 			 
@@ -166,7 +163,7 @@ class Webhook extends CI_Controller {
 			//disimpan ke DB jika lagi atau sudah /main statenya 1, jika /selesai statenya 0
 			$profile['state'] = 1; 
 			
-			$this->tebakkode_m->saveUserState($profile);
+			$this->tebakkode_m->saveGroupState($profile);
  
 			
 			return $this->getPertanyaan();
@@ -199,7 +196,7 @@ class Webhook extends CI_Controller {
 			//disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
 			$profile['state'] = 0; 
 			
-			$this->tebakkode_m->saveUserState($profile);
+			$this->tebakkode_m->saveGroupState($profile);
 		
 			return "Permainan Berakhir, silahkan ketik /main untuk bermain lagi";
 		}

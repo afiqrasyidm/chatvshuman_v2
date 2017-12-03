@@ -31,7 +31,7 @@ class Tebakkode_m extends CI_Model {
 	
   }
 
-  //disimpan ke DB jika lagi /main statenya 1, jika /selesai statenya 0
+  //disimpan ke DB jika lagi udh menjawab 30 detik statenya 1, jika /selesai statenya 0
   function saveUserState($profile){
 	//jika sudah pernah diupdate saja statenya
 	
@@ -56,6 +56,47 @@ class Tebakkode_m extends CI_Model {
 	}
   
   }
+  
+  // Group
+  function getGroupState($group_id){
+	  
+    $data = $this->db->where('group_id', $group_id)->get('group_state')->row();
+    if(count($data) > 0) 
+	{	
+		$data_state['state'] = $data->group_state;
+		$data_state['isSudahPernahSave'] = true;
+		return $data_state;
+    }
+	return false;
+	
+  }
+
+
+  function saveGroupState($profile){
+	//jika sudah pernah diupdate saja statenya
+	
+	$isSudahPernahSave = $this->getUserState($profile['source']['group_id']);
+	if($isSudahPernahSave['isSudahPernahSave']){
+	
+	  $this->db->set('group_id', $profile['state'])
+      ->where('group_id', $profile['source']['group_id'])
+      ->update('group_state');
+	   
+	   return $this->db->affected_rows();
+	}
+	//jika belum maka state user itu dibuat
+	else{
+	
+	  $this->db->set('group_id', $profile['source']['group_id'])
+      ->set('state', $profile['state'])
+      ->insert('group_state');
+	
+	   return $this->db->insert_id();
+  
+	}
+  
+  }
+  
 
   // Question
   function getQuestion($questionNum){}
