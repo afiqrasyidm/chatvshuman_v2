@@ -131,7 +131,7 @@ class Tebakkode_m extends CI_Model {
  }
 
   function isAnswerEqual($event, $answer){
-	 $group_state= this->getGroupState($event['source']['groupId']);
+	 $group_state= $this->getGroupState($event['source']['groupId']);
 	 $data = $this->db->where('id', $group_state['pertanyaan_id'])->get('pertanyaan')->row();
 	 
 	 if($data->jawaban_benar == $answer){
