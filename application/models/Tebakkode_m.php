@@ -78,7 +78,7 @@ class Tebakkode_m extends CI_Model {
 	$isSudahPernahSave = $this->getUserState($profile['source']['groupId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
-	  $this->db->set('group_id', $profile['state'])
+	  $this->db->set('group_state', $profile['state'])
       ->where('group_id', $profile['source']['groupId'])
       ->update('group_state');
 	   
@@ -88,7 +88,7 @@ class Tebakkode_m extends CI_Model {
 	else{
 	
 	  $this->db->set('group_id', $profile['source']['groupId'])
-      ->set('state', $profile['state'])
+      ->set('group_state', $profile['state'])
       ->insert('group_state');
 	
 	   return $this->db->insert_id();
