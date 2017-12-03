@@ -152,7 +152,7 @@ class Webhook extends CI_Controller {
 		 $profile = $event;
 		 
 		 //random pertanyaan 
-		$random_id = rand(1 , 9);
+		$random_id = rand(1 , 15);
 			
 
 		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
@@ -248,9 +248,7 @@ class Webhook extends CI_Controller {
 			
 			$this->tebakkode_m->saveGroupState($profile);
 			
-			$textMessageBuilder1 = new TextMessageBuilder("Permainan Berakhir, silahkan ketik /main untuk bermain lagi
-			dan /ranking untuk melihat ranking kamu group ini
-			");
+			$textMessageBuilder1 = new TextMessageBuilder("Permainan Berakhir, silahkan ketik /main untuk bermain lagi dan /ranking untuk melihat ranking kamu group ini");
 	
 			return $textMessageBuilder1;
 		}
