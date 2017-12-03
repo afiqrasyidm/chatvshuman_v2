@@ -177,9 +177,9 @@ class Tebakkode_m extends CI_Model {
 			->where('id', $isSudahPernahSave['id'])
 			->update('score_referensi');
 		
-		$this->db->affected_rows();
 		
-		return $isSudahPernahSave['id'];
+		
+		return $this->db->affected_rows();;
 	}
 	//jika belum maka state user itu dibuat
 	else{
@@ -196,5 +196,25 @@ class Tebakkode_m extends CI_Model {
   
 	}
   }
+  
+  function getRanking($profile){
+	  
+	// $where = "group_id=".'$profile['source']['groupId']'." AND user_id=". $profile['source']['userId'];
+	  
+    $data = $this->db
+	->where('group_id', $profile['source']['groupId'])
+	->order_by("score", "asc")
+	->get('score_referensi');
+	
+    if( $data -> num_rows()  > 0) 
+	{	
+		$data_state['data'] = $data;
+		$data_state['isSudahPernahSave'] = true;
+		return $data_state;
+    }
+	return false;
+	
+  }
+
 
 }

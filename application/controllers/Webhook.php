@@ -301,13 +301,30 @@ class Webhook extends CI_Controller {
 			
 			
 		}
+		//cek score
+		else if($event['message']['text'] === "/ranking"){
+			
+			
+			$isSudahPernahSave =$this->tebakkode_m->getRanking($event) ;
+			if($isSudahPernahSave['isSudahPernahSave']){
+				$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
+				return $textMessageBuilder1;
 	
+			}
+			else{
+				$textMessageBuilder1 = new TextMessageBuilder("Kalian Belum Pernah main Oi");
+				return $textMessageBuilder1;
+				
+				
+			}
+				
+		}
+		
 	
 		else{
 				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /pertanyaan untuk melihat pertanyaan sekarang, /ranking untuk melihat ranking kamu group ini");
 	
-				$textMessageBuilder1 = new TextMessageBuilder( $this->tebakkode_m->setScoreGroup($event));
-	
+				
 				 
 		
 				return $textMessageBuilder1;
