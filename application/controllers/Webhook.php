@@ -112,18 +112,22 @@ class Webhook extends CI_Controller {
 			 //cek apakah state sudah /main atau tidak 
 			 //jika sudah menekan /main
 			 
-			 	$isSudahPernahSave =$this->tebakkode_m->getGroupState($event['source']['groupId']);
+			 $isSudahPernahSave =$this->tebakkode_m->getGroupState($event['source']['groupId']);
 				
 			if($isSudahPernahSave['isSudahPernahSave'] && $isSudahPernahSave['state'] == 1) 
 				
 			{
 				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));						
+			
+			
 			}
 			//jika belum menekan /main atau telah menekan /selesai
 			else{
 	
 				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
 				
+			
+			
 			}
 			
 			 
@@ -146,13 +150,13 @@ class Webhook extends CI_Controller {
 	//fungsi untuk get pertanyaan 
 	function getPertanyaan(){
 		
-		$game_arr=array("[1]... Kakek tidak suka",
-						"Mobil[1]... tidak berjalan di",
-						"Toyota adalah sebuah ... [2]",
-						);
-						
+		 //random pertanyaan 
+		$random_id = rand(0 , sizeof($game_arr)-1);
 			
-		return $game_arr[rand(0 , sizeof($game_arr)-1)];
+		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
+			
+		
+		return $pertanyaan->pertanyaan;
 	}
 	
 	//fungsi untuk mengecek command user awal
@@ -200,6 +204,12 @@ class Webhook extends CI_Controller {
 		
 			return "Permainan Berakhir, silahkan ketik /main untuk bermain lagi";
 		}
+		
+		else if( $event['message']['text'] === "A"){
+			
+			
+		}
+	
 		else{
 			return "Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai";
 		}

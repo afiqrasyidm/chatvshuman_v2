@@ -20,11 +20,12 @@ class Tebakkode_m extends CI_Model {
   // Users
   function getUserState($user_id){
 	  
-    $data = $this->db->where('user_id', $user_id)->get('users_state')->row();
+    $data = $this->db->where('user_id', $user_id)->get('timestamp')->row();
     if(count($data) > 0) 
 	{	
-		$data_state['state'] = $data->state;
+		$data_state['timestamp_jawab'] = $data->timestamp;
 		$data_state['isSudahPernahSave'] = true;
+	
 		return $data_state;
     }
 	return false;
@@ -38,7 +39,7 @@ class Tebakkode_m extends CI_Model {
 	$isSudahPernahSave = $this->getUserState($profile['source']['userId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
-	  $this->db->set('state', $profile['state'])
+	  $this->db->set('timestamp', $profile['timestamp_jawab'])
       ->where('user_id', $profile['source']['userId'])
       ->update('users_state');
 	   
@@ -48,7 +49,7 @@ class Tebakkode_m extends CI_Model {
 	else{
 	
 	  $this->db->set('user_id', $profile['source']['userId'])
-      ->set('state', $profile['state'])
+      ->set('timestamp', $profile['timestamp_jawab'])
       ->insert('users_state');
 	
 	   return $this->db->insert_id();
@@ -98,8 +99,11 @@ class Tebakkode_m extends CI_Model {
   }
   
 
-  // Question
-  function getQuestion($questionNum){}
+  // get pertanyaan 
+  function getQuestion($questionNum){
+	  $data = $this->db->where('id', $questionNum)->row();
+	  return $data;
+}
 
   function isAnswerEqual($number, $answer){}
 
