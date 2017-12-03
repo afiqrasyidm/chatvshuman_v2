@@ -157,17 +157,19 @@ class Webhook extends CI_Controller {
 		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
 		
 		$textMessageBuilder_pertanyaan = new TextMessageBuilder($pertanyaan->pertanyaan);
-		$textMessageBuilder_opsiA = new TextMessageBuilder("A. ".$pertanyaan->opsi_a);
-		$textMessageBuilder_opsiB = new TextMessageBuilder("B. ".$pertanyaan->opsi_b);
-		$textMessageBuilder_opsiC = new TextMessageBuilder("C. ".$pertanyaan->opsi_c);
-		$textMessageBuilder_opsiD = new TextMessageBuilder("D. ".$pertanyaan->opsi_d);
+		$textMessageBuilder_opsi = new TextMessageBuilder(
+									"A. ".$pertanyaan->opsi_a
+									."\n".
+									"B. ".$pertanyaan->opsi_b
+									."\n".
+									"C. ".$pertanyaan->opsi_c
+									."\n".
+									"D. ".$pertanyaan->opsi_d
+									);
 		
 		$multiMessageBuilder = new MultiMessageBuilder();
 		$multiMessageBuilder->add($textMessageBuilder_pertanyaan);
-		$multiMessageBuilder->add($textMessageBuilder_opsiA);
-		$multiMessageBuilder->add($textMessageBuilder_opsiB);
-		$multiMessageBuilder->add($textMessageBuilder_opsiC);	
-		$multiMessageBuilder->add($textMessageBuilder_opsiD);
+		$multiMessageBuilder->add($textMessageBuilder_opsi);
 		
 		
 		return $multiMessageBuilder;
@@ -192,14 +194,14 @@ class Webhook extends CI_Controller {
 		
 			$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
 	
-			return textMessageBuilder1;
+			return $textMessageBuilder1;
 			
 		}
 		
 		else{
 				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main dan /help untuk bantuan");
 	
-				return textMessageBuilder1;
+				return $textMessageBuilder1;
 		}
 	}
 	
@@ -223,7 +225,7 @@ class Webhook extends CI_Controller {
 			
 			$textMessageBuilder1 = new TextMessageBuilder("Permainan Berakhir, silahkan ketik /main untuk bermain lagi");
 	
-			return textMessageBuilder1;
+			return $textMessageBuilder1;
 		}
 		
 		else if( $event['message']['text'] === "A"){
@@ -235,7 +237,7 @@ class Webhook extends CI_Controller {
 		
 			$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai");
 	
-			return textMessageBuilder1;
+			return $textMessageBuilder1;
 			
 
 		}
