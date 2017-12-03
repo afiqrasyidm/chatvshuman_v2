@@ -117,14 +117,14 @@ class Webhook extends CI_Controller {
 			if($isSudahPernahSave['isSudahPernahSave'] && $isSudahPernahSave['state'] == 1) 
 				
 			{
-				$cekCommand  = new TextMessageBuilder($this->cekCommandMain($event));						
+				$cekCommand  = $this->cekCommandMain($event);						
 			
 			
 			}
 			//jika belum menekan /main atau telah menekan /selesai
 			else{
 	
-				$cekCommand  = new TextMessageBuilder($this->cekCommand($event));
+				$cekCommand  = $this->cekCommand($event);
 				
 			
 			
@@ -155,9 +155,22 @@ class Webhook extends CI_Controller {
 			
 
 		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
-			
 		
-		return $pertanyaan->pertanyaan;
+		$textMessageBuilder_pertanyaan = new TextMessageBuilder($pertanyaan->pertanyaan);
+		$textMessageBuilder_opsiA = new TextMessageBuilder("A. ".$pertanyaan->opsi_a);
+		$textMessageBuilder_opsiB = new TextMessageBuilder("B. ".$pertanyaan->opsi_b);
+		$textMessageBuilder_opsiC = new TextMessageBuilder("C. ".$pertanyaan->opsi_c);
+		$textMessageBuilder_opsiD = new TextMessageBuilder("D. ".$pertanyaan->opsi_d);
+		
+		$multiMessageBuilder = new MultiMessageBuilder();
+		$multiMessageBuilder->add($textMessageBuilder_pertanyaan);
+		$multiMessageBuilder->add($textMessageBuilder_opsiA);
+		$multiMessageBuilder->add($textMessageBuilder_opsiB);
+		$multiMessageBuilder->add($textMessageBuilder_opsiC);	
+		$multiMessageBuilder->add($textMessageBuilder_opsiD);
+		
+		
+		return $multiMessageBuilder;
 	}
 	
 	//fungsi untuk mengecek command user awal
@@ -176,12 +189,17 @@ class Webhook extends CI_Controller {
 			
 		}
 		else if($event['message']['text'] === "/help"){
-			return "Bentar yaa";
+		
+			$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
+	
+			return textMessageBuilder1;
 			
 		}
 		
 		else{
-			return "Silahkan ketik /main untuk main dan /help untuk bantuan";
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main dan /help untuk bantuan");
+	
+				return textMessageBuilder1;
 		}
 	}
 	
@@ -202,8 +220,10 @@ class Webhook extends CI_Controller {
 			$profile['state'] = 0; 
 			
 			$this->tebakkode_m->saveGroupState($profile);
-		
-			return "Permainan Berakhir, silahkan ketik /main untuk bermain lagi";
+			
+			$textMessageBuilder1 = new TextMessageBuilder("Permainan Berakhir, silahkan ketik /main untuk bermain lagi");
+	
+			return textMessageBuilder1;
 		}
 		
 		else if( $event['message']['text'] === "A"){
@@ -212,7 +232,12 @@ class Webhook extends CI_Controller {
 		}
 	
 		else{
-			return "Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai";
+		
+			$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai");
+	
+			return textMessageBuilder1;
+			
+
 		}
 	}
   
