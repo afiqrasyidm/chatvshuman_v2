@@ -153,11 +153,11 @@ class Webhook extends CI_Controller {
 		 //random pertanyaan 
 		$random_id = rand(1 , 9);
 			
-		$pertanyaan = "asd";	
-		 //$pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
+
+		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
 			
 		
-		return $pertanyaan;
+		return $pertanyaan->pertanyaan;
 	}
 	
 	//fungsi untuk mengecek command user awal
