@@ -228,7 +228,7 @@ class Webhook extends CI_Controller {
 		}
 		
 		else{
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main, /help untuk bantuan, /selesai untuk selesai dan /ranking untuk melihat ranking group ini");
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main, /n/help untuk bantuan, /selesai untuk selesai, /n/skip untuk skip pertanyaan /ndan /ranking untuk melihat ranking group ini");
 	
 				return $textMessageBuilder1;
 		}
