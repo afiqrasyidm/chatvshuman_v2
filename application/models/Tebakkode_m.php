@@ -101,7 +101,7 @@ class Tebakkode_m extends CI_Model {
 
   // get pertanyaan 
   function getQuestion($questionNum){
-	  $data = $this->db->where('id', $questionNum)->row();
+	  $data = $this->db->where('id', $questionNum)->get()->row();
 	  return $data;
 }
 
