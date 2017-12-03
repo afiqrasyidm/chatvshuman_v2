@@ -240,7 +240,9 @@ class Webhook extends CI_Controller {
 			OR strcasecmp($event['message']['text'], "D")){
 			
 			//ambil pertanyaan sekarang
-			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId'])->pertanyaan_id; 
+			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId']) ;
+			
+			$pertanyaan_sekarang =$pertanyaan_sekarang ->pertanyaan_id;
 			//Save Use State 
 			
 				$user_state = $this->tebakkode_m->saveUserState($event['source']['userId']);
