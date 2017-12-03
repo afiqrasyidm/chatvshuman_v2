@@ -171,13 +171,15 @@ class Tebakkode_m extends CI_Model {
 	$isSudahPernahSave = $this->getGroupScore($profile);
 	if($isSudahPernahSave['isSudahPernahSave']){
 		//jika selesai hanya state aja yang diubah
-		$score_now = $data_state['score'] + 1;
+		$score_now = $isSudahPernahSave['score'] + 1;
 		
 		$this->db->set('score', $score_now)
-			->where('id', $data_state['id'])
+			->where('id', $isSudahPernahSave['id'])
 			->update('score_referensi');
 		
-		return $data_state['id'];
+		$this->db->affected_rows();
+		
+		return $isSudahPernahSave['id'];
 	}
 	//jika belum maka state user itu dibuat
 	else{
