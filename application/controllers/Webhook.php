@@ -173,7 +173,22 @@ class Webhook extends CI_Controller {
 		
 		$multiMessageBuilder = new MultiMessageBuilder();
 		if($isBenar){
+			
+			//kasih keterangan
+			$group_state = $this->tebakkode_m->getGroupState($profile['source']['groupId']);
+			
+			$keterangan = $this->tebakkode_m->getQuestion($group_state ['pertanyaan_id'])->keterangan;
+			//jika keterangan ada
+			if($keterangan != NULL ){
+				$textMessage_keterangan = new TextMessageBuilder("Ya.". $keterangan);
+				$multiMessageBuilder->add($textMessage_keterangan);
+			}
+			
+			
+			
+		
 			$multiMessageBuilder->add($textMessage_jikaBenar);
+		
 			
 		}
 	

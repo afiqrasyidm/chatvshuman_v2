@@ -144,6 +144,7 @@ class Tebakkode_m extends CI_Model {
   }
 
   
+  
   function getGroupScore($profile){
 	  
 	// $where = "group_id=".'$profile['source']['groupId']'." AND user_id=". $profile['source']['userId'];
