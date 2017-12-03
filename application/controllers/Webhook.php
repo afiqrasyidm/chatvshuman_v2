@@ -323,6 +323,7 @@ class Webhook extends CI_Controller {
 						 	$pemenang = $pemenang
 										."\n"
 										.$index
+										.". "
 										. $profile_user['displayName']
 										." dengan score "
 										.$data->score;
