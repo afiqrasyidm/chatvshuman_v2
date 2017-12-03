@@ -287,7 +287,7 @@ class Webhook extends CI_Controller {
 	
 			//cek spam apa engga
 			if(!$is_spam){
-				$textMessageBuilder1 = new TextMessageBuilder("Jangan SPAM OI, kasih kesempatan yang lain");
+				$textMessageBuilder1 = new TextMessageBuilder("Jangan SPAM OI, kasih kesempatan yang lain. Sabar 15 detik lagi yaa");
 				return $textMessageBuilder1;
 	
 			}
@@ -303,7 +303,7 @@ class Webhook extends CI_Controller {
 				
 			}
 			else{
-				$textMessageBuilder1 = new TextMessageBuilder("Masih kurang beruntung gan");
+				$textMessageBuilder1 = new TextMessageBuilder("Masih kurang beruntung gan. Yang lain masih bisa jawab pertanyaan ini kok.");
 	
 				return $textMessageBuilder1;
 	
@@ -362,7 +362,7 @@ class Webhook extends CI_Controller {
 		}
 		
 		else if($event['message']['text'] === "/help"){
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /skip untuk skip pertanyaan ,/pertanyaan untuk melihat pertanyaan sekarang, /ranking untuk melihat ranking kamu di group ini");
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /skip untuk skip pertanyaan , /ranking untuk melihat ranking kamu di group ini");
 				
 				 
 		
