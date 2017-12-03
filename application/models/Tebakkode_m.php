@@ -208,7 +208,7 @@ class Tebakkode_m extends CI_Model {
 	
     if( $data -> num_rows()  > 0) 
 	{	
-		$data_state['data'] = $data;
+		$data_state['data'] = $data->result();
 		$data_state['isSudahPernahSave'] = true;
 		return $data_state;
     }

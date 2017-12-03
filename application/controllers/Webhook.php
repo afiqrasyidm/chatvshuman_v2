@@ -307,8 +307,20 @@ class Webhook extends CI_Controller {
 			
 			$isSudahPernahSave =$this->tebakkode_m->getRanking($event) ;
 			if($isSudahPernahSave['isSudahPernahSave']){
-				$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
-				return $textMessageBuilder1;
+			
+				$datas  = $isSudahPernahSave['data'];
+				$multiMessageBuilder = new MultiMessageBuilder();
+				
+				 foreach($datas as $data)
+				{
+					$textMessageBuilder1 = new TextMessageBuilder("Bentar yaa");
+					$multiMessageBuilder->add($textMessageBuilder1);
+				}
+							
+
+				
+				
+				return $multiMessageBuilder;
 	
 			}
 			else{
