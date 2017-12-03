@@ -167,7 +167,7 @@ class Tebakkode_m extends CI_Model {
   function setScoreGroup($profile){
 	  
 	  
-	$isSudahPernahSave = $this->getGroupScore($profile['source']['groupId']);
+	$isSudahPernahSave = $this->getGroupScore($profile);
 	if($isSudahPernahSave['isSudahPernahSave']){
 		//jika selesai hanya state aja yang diubah
 		$score_now = $data_state['score'] + 1;
