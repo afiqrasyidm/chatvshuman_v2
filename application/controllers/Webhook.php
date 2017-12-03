@@ -148,8 +148,9 @@ class Webhook extends CI_Controller {
 			return $result;
 	}
 	//fungsi untuk get pertanyaan 
-	function getPertanyaan(){
-		
+	function getPertanyaan($event){
+		 $profile = $event;
+		 
 		 //random pertanyaan 
 		$random_id = rand(1 , 9);
 			
@@ -171,6 +172,11 @@ class Webhook extends CI_Controller {
 		$multiMessageBuilder->add($textMessageBuilder_pertanyaan);
 		$multiMessageBuilder->add($textMessageBuilder_opsi);
 		
+		$profile["pertanyaan_id"] = $random_id;
+		
+		$this->tebakkode_m->saveGroupState($profile);
+ 
+		
 		
 		return $multiMessageBuilder;
 	}
@@ -186,7 +192,7 @@ class Webhook extends CI_Controller {
 			$this->tebakkode_m->saveGroupState($profile);
  
 			
-			return $this->getPertanyaan();
+			return $this->getPertanyaan($event);
 			
 			
 		}
@@ -210,7 +216,7 @@ class Webhook extends CI_Controller {
 		if( $event['message']['text'] === "/skip"){
 			
 			
-			return $this->getPertanyaan();
+			return $this->getPertanyaan($event);
 			
 			
 		}
@@ -227,7 +233,7 @@ class Webhook extends CI_Controller {
 	
 			return $textMessageBuilder1;
 		}
-		
+		//user menjawab
 		else if( $event['message']['text'] === "A"){
 			
 			

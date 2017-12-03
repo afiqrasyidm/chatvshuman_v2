@@ -79,10 +79,19 @@ class Tebakkode_m extends CI_Model {
 	$isSudahPernahSave = $this->getGroupState($profile['source']['groupId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
-	  $this->db->set('group_state', $profile['state'])
-      ->where('group_id', $profile['source']['groupId'])
-      ->update('group_state');
-	   
+		if($profile['pertanyaan_id']==NULL){
+		
+			$this->db->set('group_state', $profile['state'])
+			->where('group_id', $profile['source']['groupId'])
+			->update('group_state');
+		}
+		
+		else{
+			
+			$this->db->set('pertanyaan_id', $profile['pertanyaan_id'])
+			->where('group_id', $profile['source']['groupId'])
+			->update('group_state');
+		}
 	   return $this->db->affected_rows();
 	}
 	//jika belum maka state user itu dibuat
