@@ -177,7 +177,7 @@ class Tebakkode_m extends CI_Model {
 			->where('id', $data_state['id'])
 			->update('score_referensi');
 		
-		return $this->db->affected_rows();
+		return $data_state['id'];
 	}
 	//jika belum maka state user itu dibuat
 	else{
