@@ -39,11 +39,18 @@ class Tebakkode_m extends CI_Model {
 	$isSudahPernahSave = $this->getUserState($profile['source']['userId']);
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
-	  $this->db->set('timestamp', $profile['timestamp_jawab'])
-      ->where('user_id', $profile['source']['userId'])
-      ->update('users_state');
-	   
-	   return $this->db->affected_rows();
+		//cek spam apa kagak 2017-12-01 06:42:52.177557
+		if($isSudahPernahSave['timestamp_jawab']){
+			$this->db->set('timestamp', $profile['timestamp_jawab'])
+			->where('user_id', $profile['source']['userId'])
+			->update('users_state');
+		   
+			return $this->db->affected_rows();
+		}
+		else{
+			
+		}
+		
 	}
 	//jika belum maka state user itu dibuat
 	else{

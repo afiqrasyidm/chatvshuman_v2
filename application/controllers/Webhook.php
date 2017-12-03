@@ -239,14 +239,24 @@ class Webhook extends CI_Controller {
 			OR strcasecmp($event['message']['text'], "C")
 			OR strcasecmp($event['message']['text'], "D")){
 			
+			//ambil pertanyaan sekarang
+			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId'])->pertanyaan_id; 
+			//Save Use State 
+			
+				$user_state = $this->tebakkode_m->saveUserState($event['source']['userId']);
+			
+			
+			
+			
 			$textMessageBuilder1 = new TextMessageBuilder("OK kamu sudah jawab");
 	
 			return $textMessageBuilder1;
 		}
 	
 		else{
-		
-			$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /skip untuk ganti kalimat dan /selesai untuk selesai");
+			$date = new DateTime();
+			
+			$textMessageBuilder1 = new TextMessageBuilder($date->format('Y-m-d H:i:s'));
 	
 			return $textMessageBuilder1;
 			
