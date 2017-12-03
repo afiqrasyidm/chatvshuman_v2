@@ -315,15 +315,19 @@ class Webhook extends CI_Controller {
 				 foreach($datas as $data)
 				{
 					$res = $this->bot->getProfile($data->user_id);
-					
+					$index = 1;
 					if($res->isSucceeded()){
+					
 						 $profile_user = $res->getJSONDecodedBody();
 						 
 						 	$pemenang = $pemenang
-										."\n "
+										."\n"
+										.$index
 										. $profile_user['displayName']
 										." dengan score "
 										.$data->score;
+										
+							$index++;
 					}
 				
 				
