@@ -205,9 +205,11 @@ class Webhook extends CI_Controller {
 		}
 		
 		else{
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main dan /help untuk bantuan");
+			$date = new DateTime();
+			
+			$textMessageBuilder1 = new TextMessageBuilder($date->format('Y-m-d H:i:s'));
 	
-				return $textMessageBuilder1;
+			return $textMessageBuilder1;
 		}
 	}
 	
