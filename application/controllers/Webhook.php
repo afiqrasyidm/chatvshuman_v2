@@ -151,7 +151,7 @@ class Webhook extends CI_Controller {
 	function getPertanyaan(){
 		
 		 //random pertanyaan 
-		$random_id = rand(0 , sizeof($game_arr)-1);
+		$random_id = rand(1 , 9);
 			
 		 $pertanyaan =$this->tebakkode_m->getQuestion($random_id );	
 			
