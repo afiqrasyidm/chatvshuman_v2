@@ -23,7 +23,7 @@ class Tebakkode_m extends CI_Model {
     $data = $this->db->where('user_id', $user_id)->get('timestamp');
     if( $data -> num_rows()  > 0) 
 	{	
-		$data_state['timestamp_jawab'] = $data->row()->timestamp;
+		$data_state['timestamp_jawab'] = strtotime($data->row()->timestamp);
 		$data_state['isSudahPernahSave'] = true;
 	
 		return $data_state;
@@ -40,15 +40,21 @@ class Tebakkode_m extends CI_Model {
 	if($isSudahPernahSave['isSudahPernahSave']){
 	
 		//cek spam apa kagak 2017-12-01 06:42:52.177557
-		if($isSudahPernahSave['timestamp_jawab']){
+		$date = new DateTime();
+		$waktuSekarang  = strtotime($date->format('Y-m-d H:i:s'));
+		if($waktuSekarang - $isSudahPernahSave['timestamp_jawab'] > 30){
+		
+			//simpan ke db
 			$this->db->set('timestamp', $profile['timestamp_jawab'])
 			->where('user_id', $profile['source']['userId'])
 			->update('users_state');
 		   
-			return $this->db->affected_rows();
+		   $this->db->affected_rows();
+		   
+			return true;
 		}
 		else{
-			
+			return false;
 		}
 		
 	}
@@ -59,7 +65,9 @@ class Tebakkode_m extends CI_Model {
       ->set('timestamp', $profile['timestamp_jawab'])
       ->insert('users_state');
 	
-	   return $this->db->insert_id();
+		$this->db->insert_id();
+	
+	   return true;
   
 	}
   

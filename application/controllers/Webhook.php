@@ -245,21 +245,26 @@ class Webhook extends CI_Controller {
 			
 
 			//Save Use State 
-			
 				$user_state = $this->tebakkode_m->saveUserState($event);
-			
-			
-			
-			
+	
 			$textMessageBuilder1 = new TextMessageBuilder("OK kamu sudah jawab");
 	
+			
+			if(!$user_state){
+				$textMessageBuilder1 = new TextMessageBuilder("Jangan SPAM OI, kasih kesempatan yang lain");
+	
+			}
+			
+			
+			
+			
 			return $textMessageBuilder1;
 		}
 	
 		else{
 			$date = new DateTime();
-			
-			$textMessageBuilder1 = new TextMessageBuilder($date->format('Y-m-d H:i:s'));
+			$timeFirst  = strtotime($date->format('Y-m-d H:i:s'));
+			$textMessageBuilder1 = new TextMessageBuilder($timeFirst);
 	
 			return $textMessageBuilder1;
 			

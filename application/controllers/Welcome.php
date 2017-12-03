@@ -20,6 +20,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+			$date = new DateTime();
+			$timeFirst  = strtotime($date->format('Y-m-d H:i:s'));
+			$timeSecond = strtotime('2017-12-03 06:55:28');
+			echo $date->format('Y-m-d H:i:s')."/n";
+			echo $timeFirst."/n";
+			echo $timeFirst - $timeSecond;
 		$this->load->view('welcome_message');
 	}
 }
