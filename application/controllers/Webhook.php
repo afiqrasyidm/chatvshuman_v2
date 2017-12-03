@@ -234,9 +234,14 @@ class Webhook extends CI_Controller {
 			return $textMessageBuilder1;
 		}
 		//user menjawab
-		else if( $event['message']['text'] === "A"){
+		else if( strcasecmp($event['message']['text'], "A") 
+			OR strcasecmp($event['message']['text'], "B")
+			OR strcasecmp($event['message']['text'], "C")
+			OR strcasecmp($event['message']['text'], "D")){
 			
-			
+			$textMessageBuilder1 = new TextMessageBuilder("OK kamu sudah jawab");
+	
+			return $textMessageBuilder1;
 		}
 	
 		else{
