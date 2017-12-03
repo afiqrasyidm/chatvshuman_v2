@@ -243,8 +243,9 @@ class Webhook extends CI_Controller {
 			//ambil pertanyaan sekarang
 			$pertanyaan_sekarang = $this->tebakkode_m->getGroupState($event['source']['groupId']) ;
 			
-			$event = $profile;
-			$profile['timestamp_jawab'] = new DateTime()->format('Y-m-d H:i:s');
+			$profile = $event;
+			$date = new DateTime();
+			$profile['timestamp_jawab'] = $date ->format('Y-m-d H:i:s');
 			//Save Use State 
 				$user_state = $this->tebakkode_m->saveUserState($profile);
 	
