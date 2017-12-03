@@ -321,7 +321,7 @@ class Webhook extends CI_Controller {
 				$datas  = $isSudahPernahSave['data'];
 				
 		
-				$pemenang = "Berikut adalah rangking dari anggota group ini :";
+				$pemenang = "Berikut adalah rangking dari anggota group ini (yang muncul hanya yang telah add bot ini):";
 				 foreach($datas as $data)
 				{
 					$res = $this->bot->getProfile($data->user_id);
