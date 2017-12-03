@@ -227,11 +227,7 @@ class Webhook extends CI_Controller {
 			
 		}
 		
-		else{
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik /main untuk main, /n/help untuk bantuan, /selesai untuk selesai, /n/skip untuk skip pertanyaan /ndan /ranking untuk melihat ranking group ini");
-	
-				return $textMessageBuilder1;
-		}
+		
 	}
 	
 	//fungsi untuk mengecek command user setelah /main
@@ -368,7 +364,7 @@ class Webhook extends CI_Controller {
 		
 	
 		else{
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /pertanyaan untuk melihat pertanyaan sekarang, /ranking untuk melihat ranking kamu group ini");
+				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /skip untuk skip pertanyaan ,/pertanyaan untuk melihat pertanyaan sekarang, /ranking untuk melihat ranking kamu group ini");
 	
 				
 				 
