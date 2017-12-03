@@ -302,8 +302,12 @@ class Webhook extends CI_Controller {
 			
 		}
 	
+	
 		else{
-				$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai dan /ranking untuk melihat ranking kamu group ini");
+				//$textMessageBuilder1 = new TextMessageBuilder("Silahkan ketik jawaban(ex : A) untuk menjawab, atau ketik /selesai untuk selesai, /pertanyaan untuk melihat pertanyaan sekarang, /ranking untuk melihat ranking kamu group ini");
+	
+				$textMessageBuilder1 = new TextMessageBuilder("group_id=".$profile['source']['groupId']." AND status=". $profile['source']['userId']);
+	
 	
 				return $textMessageBuilder1;
 			

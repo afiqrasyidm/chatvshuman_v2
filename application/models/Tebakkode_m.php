@@ -42,7 +42,7 @@ class Tebakkode_m extends CI_Model {
 		//cek spam apa kagak 2017-12-01 06:42:52.177557
 		$date = new DateTime();
 		$waktuSekarang  = strtotime($date->format('Y-m-d H:i:s'));
-		if($waktuSekarang - $isSudahPernahSave['timestamp_jawab'] > 30){
+		if($waktuSekarang - $isSudahPernahSave['timestamp_jawab'] > 15){
 		
 			//simpan ke db
 			$this->db->set('timestamp', $profile['timestamp_jawab'])
@@ -146,9 +146,10 @@ class Tebakkode_m extends CI_Model {
   
   function getGroupScore($profile){
 	  
+	 $where = "group_id=".$profile['source']['groupId']." AND status=". $profile['source']['userId'];
+	  
     $data = $this->db
-	->where('group_id', $profile['source']['groupId'])
-	->where('user_id', $profile['source']['userId'])
+	->where($where)
 	->get('score_referensi');
 	
     if( $data -> num_rows()  > 0) 
