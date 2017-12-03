@@ -146,10 +146,11 @@ class Tebakkode_m extends CI_Model {
   
   function getGroupScore($profile){
 	  
-	 $where = "group_id=".$profile['source']['groupId']." AND user_id=". $profile['source']['userId'];
+	// $where = "group_id=".'$profile['source']['groupId']'." AND user_id=". $profile['source']['userId'];
 	  
     $data = $this->db
-	->where($where)
+	->where('group_id', $profile['source']['groupId'])
+	->where('user_id', $profile['source']['userId'])
 	->get('score_referensi');
 	
     if( $data -> num_rows()  > 0) 
